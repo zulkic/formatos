@@ -5,7 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-public class Entrada {
+
+public class Implementador {
 
 	/**
 	 * @param args
@@ -163,4 +164,5 @@ public class Entrada {
 	    
 	    //System.out.println( contenido );
 	}
+
 }
