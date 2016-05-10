@@ -96,6 +96,7 @@ public class RedSocial {
 		for (People people : peoples.values()) {
 			bw.write(people.toString());
 			bw.newLine();
+			bw.flush();
 		}
 		
 		fr1 = new FileReader("/home/hduser/Descargas/GDBench-master/GDGenerator/dist/webpages.csv");
@@ -113,6 +114,7 @@ public class RedSocial {
 				jo.put("_label", "webpages");
 				bw.write(parts[0] + "\t" + jo.toString());
 				bw.newLine();
+				bw.flush();
 			}
 		}
 		bf.close();
