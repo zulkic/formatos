@@ -47,7 +47,6 @@ public class Implementador {
         	linea = chainCut[0] + "\t" + jo.toString() ;
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
         }
         bp.close();
         bc.close();
@@ -75,7 +74,6 @@ public class Implementador {
         	linea = aminoacidCut[0] + "\t" + jo.toString() + "\t" + aminoacidCut[1] + "\t{\"_label\":\"isContainForAminoacid\"}" ;
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
         }
         ba.close();
         bw.close();
@@ -101,7 +99,6 @@ public class Implementador {
         	linea = aminoacidCut[0] + "\t" + jo.toString() + "\t" + aminoacidCut[1] + "\t{\"_label\":\"isContainForHetam\"}" ;
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
         }
         ba.close();
         bw.close();
@@ -130,7 +127,6 @@ public class Implementador {
         	linea = aminoacidCut[0] + "\t" + jo.toString() + "\t" + aminoacidCut[7] + "\t{\"_label\":\"isContainForAtomAmino\"}" ;
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
         }
         ba.close();
         bw.close();
@@ -159,52 +155,34 @@ public class Implementador {
         	linea = aminoacidCut[0] + "\t" + jo.toString() + "\t" + aminoacidCut[7] + "\t{\"_label\":\"isContainForAtomHet\"}" ;
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
         }
         ba.close();
         bw.close();
     }
     
     public static void cargarDistanciaAminoHet() throws FileNotFoundException, IOException {
-        String adist, amino;
-        String archivoP = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/Dist2.csv";
-        String archivoC = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Aminoacid.csv";
-        String archivoSalida = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Aminoacid1.csv";
-        FileReader fp = new FileReader(archivoP);
-        FileReader fc = new FileReader(archivoC);
-        BufferedReader bp = new BufferedReader(fp);
-        BufferedReader bc = new BufferedReader(fc);
+        String aminoacid;
+        String archivoA = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/Dist2.csv";
+        String archivoSalida = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Dist2.csv";
+        FileReader fa = new FileReader(archivoA);
+        BufferedReader ba = new BufferedReader(fa);
         String linea;
         FileWriter fw = new FileWriter(archivoSalida);
         BufferedWriter bw = new BufferedWriter(fw);
-        Map<String, String> map = new HashMap<String, String>();
-        while((adist = bp.readLine())!=null) {
-        	String[] lineaDist = adist.split(",");
-        	if(map.containsKey(lineaDist[0]))
-        	{
-        		map.put(lineaDist[0], map.get(lineaDist[0]) + "\t" + lineaDist[1] + "\t{\"_label\":\"distanceAminoHet\",\"distance\":\"" + lineaDist[2] +"\"}"); 		
-        	}
-        	else
-        	{
-        		map.put(lineaDist[0], "\t" + lineaDist[1] + "\t{\"_label\":\"distanceAminoHet\",\"distance\":\"" + lineaDist[2] +"\"}" );
-        	}
-        }
-        bp.close();
         
-        while((amino = bc.readLine())!=null) {
-        	String[] lineaSplit = amino.split("\t");
-        	if(map.containsKey(lineaSplit[0])){
-        		linea = amino + map.get(lineaSplit[0]);
-        		map.remove(lineaSplit[0]);
-        	}
-        	else{
-        		linea = amino;
-        	}
+        while((aminoacid = ba.readLine())!=null) {
+        	JSONObject jo = new JSONObject();
+        	String[] aminoacidCut = aminoacid.split(",");
+        	jo.put("distance", aminoacidCut[2]);
+        	jo.put("_label", "distanciaAminoHet");
+        	linea = aminoacidCut[0] + "\t"  + aminoacidCut[1] + "\t" + jo.toString(); 
         	bw.write(linea);
         	bw.newLine();
-        	bw.flush();
+        	linea = aminoacidCut[1] + "\t"  + aminoacidCut[0] + "\t" + jo.toString();
+        	bw.write(linea);
+        	bw.newLine();
         }
-        bc.close();
+        ba.close();
         bw.close();
     }
  
