@@ -185,20 +185,144 @@ public class Implementador {
         ba.close();
         bw.close();
     }
+    
+    public static void cargarDistanciaAminoAmino() throws FileNotFoundException, IOException {
+        String aminoacid;
+        String archivoA = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/Dist1.csv";
+        String archivoSalida = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Dist1.csv";
+        FileReader fa = new FileReader(archivoA);
+        BufferedReader ba = new BufferedReader(fa);
+        String linea;
+        FileWriter fw = new FileWriter(archivoSalida);
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        while((aminoacid = ba.readLine())!=null) {
+        	JSONObject jo = new JSONObject();
+        	String[] aminoacidCut = aminoacid.split(",");
+        	jo.put("distance", aminoacidCut[2]);
+        	jo.put("_label", "distanciaAminoAmino");
+        	linea = aminoacidCut[0] + "\t"  + aminoacidCut[1] + "\t" + jo.toString(); 
+        	bw.write(linea);
+        	bw.newLine();
+        	linea = aminoacidCut[1] + "\t"  + aminoacidCut[0] + "\t" + jo.toString();
+        	bw.write(linea);
+        	bw.newLine();
+        }
+        ba.close();
+        bw.close();
+    }
+    
+    public static void cargarDistanciaAtomAminoAtomHetam() throws FileNotFoundException, IOException {
+        String aminoacid;
+        String archivoA = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/Dist3.csv";
+        String archivoSalida = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Dist3.csv";
+        FileReader fa = new FileReader(archivoA);
+        BufferedReader ba = new BufferedReader(fa);
+        String linea;
+        FileWriter fw = new FileWriter(archivoSalida);
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        while((aminoacid = ba.readLine())!=null) {
+        	JSONObject jo = new JSONObject();
+        	String[] aminoacidCut = aminoacid.split(",");
+        	jo.put("distance", aminoacidCut[2]);
+        	jo.put("_label", "distanciaAAAH");
+        	linea = aminoacidCut[0] + "\t"  + aminoacidCut[1] + "\t" + jo.toString(); 
+        	bw.write(linea);
+        	bw.newLine();
+        	linea = aminoacidCut[1] + "\t"  + aminoacidCut[0] + "\t" + jo.toString();
+        	bw.write(linea);
+        	bw.newLine();
+        }
+        ba.close();
+        bw.close();
+    }
+    
+    public static void cargarDistanciaAminoAtomAminoAtomAmino() throws FileNotFoundException, IOException {
+        String aminoacid;
+        String archivoA = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/Dist4.csv";
+        String archivoSalida = "/media/hduser/9E3A33E13A33B55D/Francisco/20151007-PDB-CSV/giraph1/Dist4.csv";
+        FileReader fa = new FileReader(archivoA);
+        BufferedReader ba = new BufferedReader(fa);
+        String linea;
+        FileWriter fw = new FileWriter(archivoSalida);
+        BufferedWriter bw = new BufferedWriter(fw);
+        
+        while((aminoacid = ba.readLine())!=null) {
+        	JSONObject jo = new JSONObject();
+        	String[] aminoacidCut = aminoacid.split(",");
+        	jo.put("distance", aminoacidCut[2]);
+        	jo.put("_label", "distanciaAAAA");
+        	linea = aminoacidCut[0] + "\t"  + aminoacidCut[1] + "\t" + jo.toString(); 
+        	bw.write(linea);
+        	bw.newLine();
+        	linea = aminoacidCut[1] + "\t"  + aminoacidCut[0] + "\t" + jo.toString();
+        	bw.write(linea);
+        	bw.newLine();
+        }
+        ba.close();
+        bw.close();
+    }
  
     public static void main(String[] args) throws IOException {
+		long time_start, time_end, time_intermedio;
+		
+		
+		time_start = System.currentTimeMillis();
     	System.out.println("Generando ProteinChain");
         cargarProteinChain();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_start )/1000 +" segundos");
+		
+		time_intermedio =  System.currentTimeMillis();
         System.out.println("Generando Aminoacid");
         cargarAminoacid();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+		
+		time_intermedio =  System.currentTimeMillis();
         System.out.println("Generando Hetam");
         cargarHetam();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+		time_intermedio =  System.currentTimeMillis();
         System.out.println("Generando AtomAmino");
         cargarAtomAmino();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+        time_intermedio =  System.currentTimeMillis();
         System.out.println("Generando AtomHet");
         cargarAtomHet();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+        time_intermedio =  System.currentTimeMillis();
         System.out.println("Generando distancias de aminosHetams");
         cargarDistanciaAminoHet();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+        time_intermedio =  System.currentTimeMillis();
+        System.out.println("Generando distancias de AminoAmino");
+        cargarDistanciaAminoAmino();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+        time_intermedio =  System.currentTimeMillis();
+        System.out.println("Generando distancias de AtomAminoAtomHetam");
+        cargarDistanciaAtomAminoAtomHetam();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+        
+        time_intermedio =  System.currentTimeMillis();
+        System.out.println("Generando distancias de AtomAminoAtomAmino");
+        cargarDistanciaAminoAtomAminoAtomAmino();
+        time_end = System.currentTimeMillis();
+		System.out.println("La tarea ha finalizado, el tiempo es "+ ( time_end - time_intermedio )/1000 +" segundos");
+		System.out.println("La tarea ha finalizado, el tiempo total es: "+ ( time_end - time_start )/1000 +" segundos");
+        
         
     }
 }
