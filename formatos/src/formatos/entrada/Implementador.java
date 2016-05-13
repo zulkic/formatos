@@ -182,11 +182,11 @@ public class Implementador {
         	String[] lineaDist = adist.split(",");
         	if(map.containsKey(lineaDist[0]))
         	{
-        		map.put(lineaDist[0], map.get(lineaDist[0]) + "\t" + lineaDist[1] + "\t{\"distance\":\"" + lineaDist[2] +"\"}"); 		
+        		map.put(lineaDist[0], map.get(lineaDist[0]) + "\t" + lineaDist[1] + "\t{\"_label\":\"distanceAminoHet\",\"distance\":\"" + lineaDist[2] +"\"}"); 		
         	}
         	else
         	{
-        		map.put(lineaDist[0], "\t" + lineaDist[1] + "\t{\"distance\":\"" + lineaDist[2] +"\"}" );
+        		map.put(lineaDist[0], "\t" + lineaDist[1] + "\t{\"_label\":\"distanceAminoHet\",\"distance\":\"" + lineaDist[2] +"\"}" );
         	}
         }
         bp.close();
